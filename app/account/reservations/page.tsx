@@ -1,5 +1,10 @@
 import ReservationCard from "@/app/_components/ReservationCard";
 import { bookingType } from "@/app/types/types";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Reservations",
+};
 
 export default function Page() {
   // CHANGE
