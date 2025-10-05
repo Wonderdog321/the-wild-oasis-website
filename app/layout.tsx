@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
+import { Josefin_Sans } from "next/font/google";
+import "@/app/_styles/globals.css";
+import Header from "./_components/Header";
+
+const josefin = Josefin_Sans({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "The Wild Oasis",
-  description: "The Wild Oasis, customer webpage.",
+  title: { template: "The Wild Oasis - %s", default: "The Wild Oasis" },
+  description:
+    "Luxurious cabin hotel, located in the heart of the Italian Dolomites surrounded by beautiful mountains and dark forests.",
 };
 
 export default function RootLayout({
@@ -12,7 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body
+        className={`${josefin.className} bg-primary-950 text-primary-100 flex min-h-screen flex-col antialiased`}
+      >
+        <Header />
+        <div className="flex-1 px-8 py-12">
+          <main className="mx-auto max-w-7xl">{children}</main>
+        </div>
+      </body>
     </html>
   );
 }
