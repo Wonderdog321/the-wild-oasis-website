@@ -5,5 +5,9 @@ export const metadata: Metadata = {
 };
 
 export default function page() {
-  return <div>Account</div>;
+  return (
+    <h2 className="text-accent-400 mb-7 text-2xl font-semibold">
+      Welcome, David
+    </h2>
+  );
 }
