@@ -1,5 +1,4 @@
 import CabinCard from "@/app/_components/CabinCard";
-
 import { getCabins } from "../_lib/data-service";
 import { cabinType, filterType } from "../types/types";
 

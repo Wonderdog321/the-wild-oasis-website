@@ -5,6 +5,6 @@ export default {
     "@trivago/prettier-plugin-sort-imports",
   ],
   importOrder: ["^react", "<THIRD_PARTY_MODULES>", "^@/.*", "^[./]"],
-  importOrderSeparation: true,
+  importOrderSeparation: false,
   importOrderSortSpecifiers: true,
 };

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-
 import ReservationCard from "@/app/_components/ReservationCard";
 import { bookingType } from "@/app/types/types";
 

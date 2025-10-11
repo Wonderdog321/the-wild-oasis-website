@@ -1,5 +1,4 @@
 import { FlatCompat } from "@eslint/eslintrc";
-import eslintPluginImport from "eslint-plugin-import";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -23,30 +22,6 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
-  },
-
-  // 🔥 Import plugin rules
-  {
-    plugins: {
-      import: eslintPluginImport,
-    },
-    rules: {
-      "import/order": [
-        "error",
-        {
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index",
-          ],
-          "newlines-between": "always",
-          alphabetize: { order: "asc", caseInsensitive: true },
-        },
-      ],
-    },
   },
 ];
 

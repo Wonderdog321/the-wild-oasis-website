@@ -1,7 +1,5 @@
 import { Suspense } from "react";
-
 import { Metadata } from "next";
-
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
 import { filterType } from "../types/types";
