@@ -1,13 +1,21 @@
-import { Metadata } from "next";
 import { Suspense } from "react";
+
+import { Metadata } from "next";
+
 import CabinList from "../_components/CabinList";
 import Spinner from "../_components/Spinner";
+import { filterType } from "../types/types";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Cabins",
 };
 
-export default function Page() {
+type searchParamsProps = { searchParams: { capacity: filterType | null } };
+
+export default function Page({ searchParams }: searchParamsProps) {
+  const filter = searchParams.capacity ?? "all";
   return (
     <div>
       <h1 className="text-accent-400 mb-5 text-4xl font-medium">
@@ -22,7 +30,7 @@ export default function Page() {
         Welcome to paradise.
       </p>
       <Suspense fallback={<Spinner />}>
-        <CabinList />
+        <CabinList filter={filter} />
       </Suspense>
     </div>
   );

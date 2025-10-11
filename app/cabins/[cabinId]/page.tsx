@@ -1,15 +1,27 @@
-import Image from "next/image";
-import { cabinType } from "@/app/types/types";
-import { getCabin } from "@/app/_lib/data-service";
 import { EyeSlashIcon, MapPinIcon, UsersIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
 
-type PageProps = { params: { cabinId: string } };
+import TextExpander from "@/app/_components/TextExpander";
+import { getCabin, getCabins } from "@/app/_lib/data-service";
+import { cabinType } from "@/app/types/types";
+
+type PageProps = { params: Promise<{ cabinId: string }> };
 
 export async function generateMetadata({ params }: PageProps) {
   const { cabinId } = await params;
   const { name } = await getCabin(cabinId);
 
   return { title: `Cabin ${name}` };
+}
+
+export async function generateStaticParams() {
+  const cabins: cabinType[] = await getCabins();
+
+  const ids = cabins.map((cabin) => ({
+    cabinId: String(cabin.id),
+  }));
+
+  return ids;
 }
 
 export default async function Page({ params }: PageProps) {
@@ -21,8 +33,7 @@ export default async function Page({ params }: PageProps) {
       "This cabin page does not exist. Please go back and try again.",
     );
 
-  const { id, name, maxCapacity, regularPrice, discount, image, description } =
-    cabin;
+  const { name, maxCapacity, image, description } = cabin;
 
   return (
     <div className="mx-auto mt-8 max-w-6xl">
@@ -41,7 +52,9 @@ export default async function Page({ params }: PageProps) {
             Cabin {name}
           </h3>
 
-          <p className="text-primary-300 mb-10 text-lg">{description}</p>
+          <p className="text-primary-300 mb-10 text-lg">
+            <TextExpander>{description!}</TextExpander>
+          </p>
 
           <ul className="mb-7 flex flex-col gap-4">
             <li className="flex items-center gap-3">
