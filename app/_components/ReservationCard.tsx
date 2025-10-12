@@ -5,23 +5,24 @@ import Link from "next/link";
 import { bookingType } from "../types/types";
 import DeleteReservation from "./DeleteReservation";
 
-type bookingProp = { booking: bookingType };
+type reservationProp = {
+  booking: bookingType;
+  onDelete: (bookingId: number) => void;
+};
 
 export const formatDistanceFromNow = (dateStr: string) =>
   formatDistance(parseISO(dateStr), new Date(), {
     addSuffix: true,
   }).replace("about ", "");
 
-function ReservationCard({ booking }: bookingProp) {
+function ReservationCard({ booking, onDelete }: reservationProp) {
   const {
     id,
-    guestId,
     startDate,
     endDate,
     numNights,
     totalPrice,
     numGuests,
-    status,
     created_at,
     cabins: { name, image },
   } = booking;
@@ -82,7 +83,7 @@ function ReservationCard({ booking }: bookingProp) {
             <PencilSquareIcon className="text-primary-600 group-hover:text-primary-800 h-5 w-5 transition-colors" />
             <span className="mt-1">Edit</span>
           </Link>
-          <DeleteReservation bookingId={id} />
+          <DeleteReservation bookingId={id} onDelete={onDelete} />
         </div>
       )}
     </div>

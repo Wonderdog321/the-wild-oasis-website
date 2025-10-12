@@ -20,14 +20,15 @@ export interface guestType {
 
 export interface bookingType {
   id: number;
-  guestId: number;
+  created_at: string;
   startDate: string;
   endDate: string;
   numNights: number;
-  totalPrice: number;
   numGuests: number;
+  totalPrice: number;
+  guestId: number;
   status?: string;
-  created_at: string;
+  cabinId: number;
   cabins: { name: string; image: string };
 }
 
