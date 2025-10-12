@@ -8,6 +8,16 @@ export interface cabinType {
   description?: string;
 }
 
+export interface guestType {
+  id: number;
+  created_at: string;
+  fullName: string;
+  email: string;
+  nationalID: string;
+  nationality: string;
+  countryFlag: string;
+}
+
 export interface bookingType {
   id: number;
   guestId: number;

@@ -1,16 +1,28 @@
 "use client";
 
-import { PropsWithChildren } from "react";
+import { ReactNode } from "react";
+import { updateProfile } from "../_lib/actions";
+import { guestType } from "../types/types";
 
-export default function UpdateProfileForm({ children }: PropsWithChildren) {
-  const countryFlag = "pt.jpg";
-
+export default function UpdateProfileForm({
+  guest,
+  children,
+}: {
+  guest: guestType;
+  children: ReactNode;
+}) {
+  const { fullName, email, nationality, nationalID, countryFlag } = guest;
   return (
-    <form className="bg-primary-900 flex flex-col gap-6 px-12 py-8 text-lg">
+    <form
+      className="bg-primary-900 flex flex-col gap-6 px-12 py-8 text-lg"
+      action={updateProfile}
+    >
       <div className="space-y-2">
         <label>Full name</label>
         <input
           disabled
+          defaultValue={fullName}
+          name="fullName"
           className="bg-primary-200 text-primary-800 w-full rounded-sm px-5 py-3 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
         />
       </div>
@@ -19,6 +31,8 @@ export default function UpdateProfileForm({ children }: PropsWithChildren) {
         <label>Email address</label>
         <input
           disabled
+          defaultValue={email}
+          name="email"
           className="bg-primary-200 text-primary-800 w-full rounded-sm px-5 py-3 shadow-sm disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400"
         />
       </div>
@@ -38,6 +52,7 @@ export default function UpdateProfileForm({ children }: PropsWithChildren) {
       <div className="space-y-2">
         <label htmlFor="nationalID">National ID number</label>
         <input
+          defaultValue={nationalID}
           name="nationalID"
           className="bg-primary-200 text-primary-800 w-full rounded-sm px-5 py-3 shadow-sm"
         />
