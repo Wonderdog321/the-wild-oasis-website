@@ -1,8 +1,7 @@
-"use client";
-
 import { ReactNode } from "react";
 import { updateProfile } from "../_lib/actions";
 import { guestType } from "../types/types";
+import SubmitButton from "./SubmitButton";
 
 export default function UpdateProfileForm({
   guest,
@@ -59,9 +58,7 @@ export default function UpdateProfileForm({
       </div>
 
       <div className="flex items-center justify-end gap-6">
-        <button className="bg-accent-500 text-primary-800 hover:bg-accent-600 px-8 py-4 font-semibold transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
-          Update profile
-        </button>
+        <SubmitButton>Update profile</SubmitButton>
       </div>
     </form>
   );

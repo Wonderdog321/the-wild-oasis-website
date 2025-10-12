@@ -26,7 +26,7 @@ export interface bookingType {
   numNights: number;
   totalPrice: number;
   numGuests: number;
-  status: string;
+  status?: string;
   created_at: string;
   cabins: { name: string; image: string };
 }
