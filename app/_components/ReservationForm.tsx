@@ -1,5 +1,6 @@
 "use client";
 
+import { format } from "date-fns";
 import { cabinType } from "../types/types";
 import { useReservation } from "./ReservationContext";
 
@@ -57,7 +58,12 @@ function ReservationForm({ cabin }: { cabin: cabinType }) {
         </div>
 
         <div className="flex justify-end items-center gap-6">
-          <p className="text-primary-300 text-base">Start by selecting dates</p>
+          <p className="text-primary-300 text-base">
+            {range.to
+              ? `${format(new Date(range.from!), "MMM dd yyyy")} —
+                      ${format(new Date(range.to), "MMM dd yyyy")}`
+              : "Start by selecting dates"}
+          </p>
 
           <button className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
             Reserve now
