@@ -1,13 +1,16 @@
 import { Metadata } from "next";
+import { auth } from "../_lib/auth";
 
 export const metadata: Metadata = {
   title: "Your Account",
 };
 
-export default function page() {
+export default async function page() {
+  const session = await auth();
+  const firstName = session!.user!.name?.split(" ").at(0);
   return (
     <h2 className="text-accent-400 mb-7 text-2xl font-semibold">
-      Welcome, David
+      Welcome, {firstName}
     </h2>
   );
 }
