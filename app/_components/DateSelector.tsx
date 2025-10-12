@@ -1,34 +1,44 @@
-// import { isWithinInterval } from "date-fns";
-import { DayPicker } from "react-day-picker";
+"use client";
+
+import { DateRange, DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { isWithinInterval } from "date-fns";
+import { cabinType, settingsType } from "../types/types";
+import { useReservation } from "./ReservationContext";
 
-// function isAlreadyBooked(range, datesArr) {
-//   return (
-//     range.from &&
-//     range.to &&
-//     datesArr.some((date) =>
-//       isWithinInterval(date, { start: range.from, end: range.to })
-//     )
-//   );
-// }
+function isAlreadyBooked(range: DateRange, datesArr: Date[]) {
+  return (
+    range.from &&
+    range.to &&
+    datesArr.some((date) =>
+      isWithinInterval(date, { start: range.from!, end: range.to! }),
+    )
+  );
+}
 
-function DateSelector() {
-  // CHANGE
-  const regularPrice = 23;
-  const discount = 23;
+interface DateSelectorProps {
+  settings: settingsType;
+  bookedDates: Date[];
+  cabin: cabinType;
+}
+
+function DateSelector({ settings, bookedDates, cabin }: DateSelectorProps) {
+  const { range, setRange, resetRange } = useReservation();
+  const { regularPrice, discount } = cabin;
   const numNights = 23;
-  const cabinPrice = 23;
-  const range = { from: null, to: null };
+  const cabinPrice = (regularPrice - discount) * numNights;
 
-  // SETTINGS
-  const minBookingLength = 1;
-  const maxBookingLength = 23;
+  const { minBookingLength, maxBookingLength } = settings;
 
   return (
     <div className="flex flex-col justify-between">
       <DayPicker
         className="place-self-center pt-12"
         mode="range"
+        onSelect={(range) => {
+          if (range) setRange(range);
+        }}
+        selected={range}
         min={minBookingLength + 1}
         max={maxBookingLength}
         fromMonth={new Date()}
@@ -69,7 +79,7 @@ function DateSelector() {
         {range.from || range.to ? (
           <button
             className="border-primary-800 border px-4 py-2 text-sm font-semibold"
-            // onClick={() => resetRange()}
+            onClick={resetRange}
           >
             Clear
           </button>

@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import CabinList from "../_components/CabinList";
 import Filter from "../_components/Filter";
+import ReservationReminder from "../_components/ReservationReminder";
 import Spinner from "../_components/Spinner";
 import { filterType } from "../types/types";
 
@@ -45,6 +46,7 @@ export default async function Page({ searchParams }: searchParamsProps) {
 
       <Suspense fallback={<Spinner />} key={filter}>
         <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );

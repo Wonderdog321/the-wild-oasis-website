@@ -1,9 +1,25 @@
 import { getCountries } from "@/app/_lib/data-service";
 
-// Let's imagine your colleague already built this component 😃
+interface countryType {
+  name: string;
+  flag: string;
+  independent: boolean;
+}
 
-async function SelectCountry({ defaultCountry, name, id, className }) {
-  const countries = await getCountries();
+interface SelectCountryProps {
+  defaultCountry: string;
+  name: string;
+  id: string;
+  className: string;
+}
+
+async function SelectCountry({
+  defaultCountry,
+  name,
+  id,
+  className,
+}: SelectCountryProps) {
+  const countries: countryType[] = await getCountries();
   const flag =
     countries.find((country) => country.name === defaultCountry)?.flag ?? "";
 

@@ -21,4 +21,13 @@ export interface bookingType {
   cabins: { name: string; image: string };
 }
 
+export interface settingsType {
+  id: number;
+  created_at: Date;
+  minBookingLength: number;
+  maxBookingLength: number;
+  maxGuestsPerBooking: number;
+  breakfastPrice: number;
+}
+
 export type filterType = "all" | "small" | "medium" | "large";
