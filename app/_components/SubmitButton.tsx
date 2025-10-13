@@ -8,7 +8,7 @@ export default function SubmitButton({
   disabled = false,
   children,
 }: {
-  disabled: boolean;
+  disabled?: boolean;
   children: ReactNode;
 }) {
   //Has to be a component inside a form, not using a form element.

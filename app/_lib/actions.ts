@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { bookingType } from "../types/types";
 import { auth, signIn, signOut } from "./auth";
 import { getBookings } from "./data-service";
 import { supabase } from "./supabase";
