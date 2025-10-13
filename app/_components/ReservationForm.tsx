@@ -1,13 +1,29 @@
 "use client";
 
-import { format } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import { User } from "next-auth";
+import { createBooking } from "../_lib/actions";
 import { cabinType } from "../types/types";
 import { useReservation } from "./ReservationContext";
+import SubmitButton from "./SubmitButton";
 
 function ReservationForm({ cabin, user }: { cabin: cabinType; user: User }) {
-  const { range } = useReservation();
-  const { maxCapacity } = cabin;
+  const { range, resetRange } = useReservation();
+  const { id, maxCapacity, regularPrice, discount } = cabin;
+  const { from: startDate, to: endDate } = range;
+  const numNights =
+    endDate && startDate ? differenceInDays(endDate, startDate) : 0;
+  const cabinPrice = numNights * (regularPrice - discount);
+
+  const bookingData = {
+    startDate,
+    endDate,
+    numNights,
+    cabinPrice,
+    cabinId: id,
+  };
+
+  const createBookingWithData = createBooking.bind(null, bookingData);
 
   return (
     <div className="scale-[1.01]">
@@ -26,7 +42,13 @@ function ReservationForm({ cabin, user }: { cabin: cabinType; user: User }) {
         </div>
       </div>
 
-      <form className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col">
+      <form
+        className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col"
+        action={async (formData) => {
+          resetRange();
+          await createBookingWithData(formData);
+        }}
+      >
         <div className="space-y-2">
           <label htmlFor="numGuests">How many guests?</label>
           <select
@@ -66,9 +88,7 @@ function ReservationForm({ cabin, user }: { cabin: cabinType; user: User }) {
               : "Start by selecting dates"}
           </p>
 
-          <button className="bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300">
-            Reserve now
-          </button>
+          <SubmitButton disabled={!range.to}>Reserve Now</SubmitButton>
         </div>
       </form>
     </div>
