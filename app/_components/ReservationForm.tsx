@@ -16,8 +16,8 @@ function ReservationForm({ cabin, user }: { cabin: cabinType; user: User }) {
   const cabinPrice = numNights * (regularPrice - discount);
 
   const bookingData = {
-    startDate,
-    endDate,
+    startDate: startDate!,
+    endDate: endDate!,
     numNights,
     cabinPrice,
     cabinId: id,
@@ -35,8 +35,8 @@ function ReservationForm({ cabin, user }: { cabin: cabinType; user: User }) {
             // Important to display google profile images
             referrerPolicy="no-referrer"
             className="h-8 rounded-full"
-            src={user.image}
-            alt={user.name}
+            src={user.image!}
+            alt={user.name!}
           />
           <p>{user.name}</p>
         </div>

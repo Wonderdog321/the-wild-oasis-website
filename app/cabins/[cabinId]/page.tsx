@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Suspense } from "react";
 import Cabin from "@/app/_components/Cabin";
 import Reservation from "@/app/_components/Reservation";
@@ -6,7 +5,11 @@ import Spinner from "@/app/_components/Spinner";
 import { getCabin, getCabins } from "@/app/_lib/data-service";
 import { cabinType } from "@/app/types/types";
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ cabinId: string }>;
+}) {
   const resolvedParams = await params;
   const cabinId = Number(resolvedParams.cabinId);
   const { name } = await getCabin(cabinId);
@@ -24,7 +27,11 @@ export async function generateStaticParams() {
   return ids;
 }
 
-export default async function Page({ params }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ cabinId: string }>;
+}) {
   const resolvedParams = await params;
   const cabinId = Number(resolvedParams.cabinId);
   const cabin: cabinType = await getCabin(cabinId);

@@ -26,8 +26,8 @@ const authConfig: NextAuthConfig = {
     },
     async signIn({ user }) {
       try {
-        const existingGuest = await getGuest(user.email);
-        if (!existingGuest) {
+        const existingGuest = await getGuest(user.email!);
+        if (!existingGuest && user.email && user.name) {
           await createGuest({ email: user.email, fullName: user.name });
         }
 

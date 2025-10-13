@@ -10,7 +10,10 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const session = await auth();
-  const guest = await getGuest(session!.user.email);
+  if (!session?.user?.email) {
+    throw new Error("User email is required");
+  }
+  const guest = await getGuest(session.user.email);
   return (
     <div>
       <h2 className="text-accent-400 mb-4 text-2xl font-semibold">

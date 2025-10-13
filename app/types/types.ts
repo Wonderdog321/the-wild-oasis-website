@@ -9,13 +9,13 @@ export interface cabinType {
 }
 
 export interface guestType {
-  id: number;
-  created_at: string;
+  id?: number;
+  created_at?: string;
   fullName: string;
   email: string;
-  nationalID: string;
-  nationality: string;
-  countryFlag: string;
+  nationalID?: string;
+  nationality?: string;
+  countryFlag?: string;
 }
 
 export interface bookingType {

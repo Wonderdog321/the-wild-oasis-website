@@ -1,7 +1,13 @@
 import { getCabinPrice } from "@/app/_lib/data-service";
 
-async function Price({ cabinId }) {
-  const { regularPrice, discount } = await getCabinPrice(cabinId);
+async function Price({ cabinId }: { cabinId: number }) {
+  const priceData = await getCabinPrice(cabinId);
+
+  if (!priceData) {
+    return <p>Price not available</p>; // or return null or a fallback UI
+  }
+
+  const { regularPrice, discount } = priceData;
 
   return (
     <p className="mt-12 text-3xl flex gap-3 items-baseline">
